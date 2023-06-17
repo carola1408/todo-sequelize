@@ -5,15 +5,16 @@ const methodOverride = require('method-override')
 const bcrypt = require('bcryptjs')
 const app = express()
 const PORT = 3000
+//樣板引擎指定為 Handlebars
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 // setting body-parser 改寫成 express，也可以直接取得 
 app.use(express.urlencoded({ extended: true }))
-//設定首頁路由
+//設定 Todo 首頁路由
 app.get('/', (req, res) => {
-  res.send('hello world')
+  res.render('index')
 })
 //設定新頁面路由
 app.get('/todos/new', (req, res) => {
