@@ -15,6 +15,46 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
   res.send('hello world')
 })
+//設定新頁面路由
+app.get('/todos/new', (req, res) => {
+  res.render('new')
+})
+app.post('/todos', (req, res) => {
+  res.send('hello world')
+})
+//設定特定資料路由
+app.get('/todos/:id', (req, res) => {
+  res.render('detail')
+})
+//設定修改資料路由
+app.get('/todos/:id/edit', (req, res) => {
+  res.render('edit')
+})
+//設定刪除資料路由
+app.post('/todos/:id/delete', (req, res) => {
+  const id = req.params.id
+  res.send('hello world')
+})
+//設定登入路由
+app.get('/users/login', (req, res) => {
+  res.render('login')
+})
+
+app.post('/users/login', (req, res) => {
+  res.send('login')
+})
+//設定註冊路由
+app.get('/users/register', (req, res) => {
+  res.render('register')
+})
+
+app.post('/users/register', (req, res) => {
+  res.send('register')
+})
+//設定登出路由
+app.get('/users/logout', (req, res) => {
+  res.send('logout')
+})
 // 設定 port 3000
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`)
