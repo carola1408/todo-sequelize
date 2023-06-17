@@ -17,7 +17,13 @@ app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
 //設定 Todo 首頁路由
 app.get('/', (req, res) => {
-  res.render('index')
+  //查詢多筆資料是 findAll()，如果不帶參數，會預設撈出整張表的資料。
+  return Todo.findAll({
+    raw: true,
+    nest: true
+  })
+    .then((todos) => { return res.render('index', { todos: todos }) })
+    .catch((error) => { return res.status(422).json(error) })
 })
 //設定新頁面路由
 app.get('/todos/new', (req, res) => {
