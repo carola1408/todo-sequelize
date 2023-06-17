@@ -4,6 +4,9 @@ const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 const bcrypt = require('bcryptjs')
 const app = express()
+const db = require('./models')
+const Todo = db.Todo
+const User = db.User
 const PORT = 3000
 //樣板引擎指定為 Handlebars
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
@@ -50,7 +53,9 @@ app.get('/users/register', (req, res) => {
 })
 
 app.post('/users/register', (req, res) => {
-  res.send('register')
+  const { name, email, password, confirmPassword } = req.body
+  User.create({ name, email, password })
+    .then(user => res.redirect('/'))
 })
 //設定登出路由
 app.get('/users/logout', (req, res) => {
