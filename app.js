@@ -34,7 +34,10 @@ app.post('/todos', (req, res) => {
 })
 //設定特定資料路由
 app.get('/todos/:id', (req, res) => {
-  res.render('detail')
+  const id = req.params.id
+  return Todo.findByPk(id)
+    .then(todo => res.render('detail', { todo: todo.toJSON() }))
+    .catch(error => console.log(error))
 })
 //設定修改資料路由
 app.get('/todos/:id/edit', (req, res) => {
