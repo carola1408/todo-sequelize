@@ -25,6 +25,15 @@ module.exports = app => {
       })
       .catch(err => done(err, false))
   }))
+  passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
+    callbackURL: process.env.FACEBOOK_CALLBACK,
+    profileFields: ['email', 'displayName']
+  }, (accessToken, refreshToken, profile, done) => {
+    console.log(profile)
+  }))
+
   // 設定序列化與反序列化
   passport.serializeUser((user, done) => {
     done(null, user.id)
