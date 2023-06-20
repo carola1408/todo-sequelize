@@ -3,17 +3,23 @@ const express = require('express')
 const router = express.Router()
 // 引用 Todo model
 const db = require('../../models')
+const Todo = db.Todo
+const User = db.User
 // 定義首頁路由
-
 router.get('/', (req, res) => {
-  //查詢多筆資料是 findAll()，如果不帶參數，會預設撈出整張表的資料。
-  return Todo.findAll({
-    raw: true,
-    nest: true
-  })
+  User.findByPk(req.user.id)
+    .then((user) => {
+      if (!user) throw new Error('user not found')
+
+      return Todo.findAll({
+        raw: true,
+        nest: true,
+        where: { UserId: req.user.id }
+      })
+    })
     .sort({ _id: 'asc' }) // 新增這裡：根據 _id 升冪排序
-    .then((todos) => { return res.render('index', { todos: todos }) })
-    .catch((error) => { return res.status(422).json(error) })
+    .then(todos => res.render('index', { todos }))
+    .catch(error => console.error(error))
 })
 // 匯出路由模組
 module.exports = router
