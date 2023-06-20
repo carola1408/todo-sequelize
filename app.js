@@ -60,7 +60,7 @@ app.get('/todos/:id/edit', (req, res) => {
 app.post('/todos/:id/edit', (req, res) => {
   const id = req.params.id
   const { name, isDone } = req.body
-  return Todo.findOne({ id })
+  return Todo.findById(id)
     .then(todo => {
       todo.name = name
       todo.isDone = isDone === 'on'
