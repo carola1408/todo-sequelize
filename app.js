@@ -72,7 +72,10 @@ app.post('/todos/:id/edit', (req, res) => {
 //設定刪除資料路由
 app.post('/todos/:id/delete', (req, res) => {
   const id = req.params.id
-  res.send('hello world')
+  return Todo.findById(id)
+    .then(todo => todo.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
 })
 //設定登入路由
 app.get('/users/login', (req, res) => {
