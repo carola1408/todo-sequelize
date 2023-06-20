@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
     raw: true,
     nest: true
   })
+    .sort({ _id: 'asc' }) // 新增這裡：根據 _id 升冪排序
     .then((todos) => { return res.render('index', { todos: todos }) })
     .catch((error) => { return res.status(422).json(error) })
 })
