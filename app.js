@@ -57,7 +57,7 @@ app.get('/todos/:id/edit', (req, res) => {
     .then(todo => res.render('edit', { todo: todo.get() }))
     .catch(error => console.log(error))
 })
-app.post('/todos/:id', (req, res) => {
+app.post('/todos/:id/edit', (req, res) => {
   const id = req.params.id
   const { name, isDone } = req.body
   return Todo.findOne({ id })
