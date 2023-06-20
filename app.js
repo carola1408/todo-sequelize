@@ -31,14 +31,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use(routes)
 // 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
 usePassport(app)
-
-
-
-
-//設定登出路由
-app.get('/users/logout', (req, res) => {
-  res.send('logout')
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
 })
+
+
+
 // 設定 port 3000
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`)
