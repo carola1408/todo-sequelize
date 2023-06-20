@@ -7,6 +7,7 @@ const app = express()
 const db = require('./models')
 const Todo = db.Todo
 const User = db.User
+const routes = require('./routes')
 const PORT = 3000
 // 加入這段 code, 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 // setting body-parser 改寫成 express，也可以直接取得 
 app.use(express.urlencoded({ extended: true }))
+app.use(routes)
 
 //設定 Todo 首頁路由
 app.get('/', (req, res) => {
