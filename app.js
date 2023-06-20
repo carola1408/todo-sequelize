@@ -34,16 +34,7 @@ usePassport(app)
 
 
 
-//設定註冊路由
-app.get('/users/register', (req, res) => {
-  res.render('register')
-})
 
-app.post('/users/register', (req, res) => {
-  const { name, email, password, confirmPassword } = req.body
-  User.create({ name, email, password })
-    .then(user => res.redirect('/'))
-})
 //設定登出路由
 app.get('/users/logout', (req, res) => {
   res.send('logout')
